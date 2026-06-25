@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AC Load Calculator</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>AC Load Calculator</h1>
+      <p>Calculate the right AC capacity for your space</p>
+    </header>
+
+    <main>
+      <form class="calculator-form" id="calculator-form">
+        <section class="form-section">
+          <h2>Room Details</h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="room-length">Room Length (ft)</label>
+              <input type="number" id="room-length" name="room-length" placeholder="e.g., 15" required>
+            </div>
+            <div class="form-group">
+              <label for="room-width">Room Width (ft)</label>
+              <input type="number" id="room-width" name="room-width" placeholder="e.g., 12" required>
+            </div>
+            <div class="form-group">
+              <label for="room-height">Room Height (ft)</label>
+              <input type="number" id="room-height" name="room-height" placeholder="e.g., 8" value="8" required>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h2>Building Characteristics</h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="roof-type">Roof Type</label>
+              <select id="roof-type" name="roof-type">
+                <option value="hot">Hot roof (adds 10%)</option>
+                <option value="shaded">Shaded roof (adds 5%)</option>
+                <option value="enclosed">Enclosed space (adds 15%)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="orientation">Room Orientation</label>
+              <select id="orientation" name="orientation">
+                <option value="south">South-facing (adds 10%)</option>
+                <option value="north">North-facing (adds 10% once)</option>
+                <option value="east">East-facing (adds 5%)</option>
+                <option value="west">West-facing (adds 15%)</option>
+                <option value="any">Any orientation</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="construction">Construction Type</label>
+              <select id="construction" name="construction">
+                <option value="wood">Wood floors</option>
+                <option value="concrete">Concrete floors</option>
+                <option value="insulated">Insulated roof</option>
+                <option value="non-insulated">Non-insulated roof</option>
+                <option value="glass">Glass wall</option>
+                <option value="masonry">Masonry wall</option>
+                <option value="double-glass">Double glass</option>
+                <option value="single-glass">Single glass</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h2>Window Configuration</h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="window-config">Window Configuration</label>
+              <select id="window-config" name="window-config">
+                <option value="none">No glazed opening in wall</option>
+                <option value="single-south">Single window on south/west side</option>
+                <option value="single-north">Single window on north side</option>
+                <option value="glazed-door">Glazed door/garage door</option>
+                <option value="two-windows">Two windows on opposite walls (north/south)</option>
+                <option value="multiple-windows">Three or more windows, or windows on east/west</option>
+                <option value="skylight">Skylight</option>
+                <option value="east-west">Window facing east/west</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="windows-factor">Window Factor</label>
+              <input type="text" id="windows-factor" name="windows-factor" readonly placeholder="Calculated based on selection">
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h2>Occupancy & Equipment</h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="people-count">Number of People</label>
+              <input type="number" id="people-count" name="people-count" placeholder="e.g., 4" value="4" required>
+            </div>
+            <div class="form-group">
+              <label for="illumination">Illumination (lux)</label>
+              <input type="number" id="illumination" name="illumination" placeholder="e.g., 300" value="300" required>
+            </div>
+            <div class="form-group">
+              <label for="has-computer">Computer/Laptop</label>
+              <div class="checkbox-group">
+                <input type="checkbox" id="has-computer" name="has-computer">
+                <label for="has-computer">Yes (adds 600 BTU)</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="has-tv">TV Set</label>
+              <div class="checkbox-group">
+                <input type="checkbox" id="has-tv" name="has-tv">
+                <label for="has-tv">Yes (adds 100 BTU)</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="has-fridge">Refrigerator</label>
+              <div class="checkbox-group">
+                <input type="checkbox" id="has-fridge" name="has-fridge">
+                <label for="has-fridge">Yes (adds 2000 BTU)</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="has-lamps">Lamps (total)</label>
+              <input type="number" id="has-lamps" name="has-lamps" placeholder="e.g., 10" value="0">
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h2>Weather & Special Conditions</h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="weather-condition">Weather Condition</label>
+              <select id="weather-condition" name="weather-condition">
+                <option value="standard">Standard (All year)</option>
+                <option value="hot">Hot weather areas (climates above 85°F)</option>
+                <option value="moderate">Moderate weather areas (45°F-85°F)</option>
+                <option value="cold">Cold weather areas (below 45°F)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="ceiling-height">Ceiling Height (ft)</label>
+              <input type="number" id="ceiling-height" name="ceiling-height" placeholder="e.g., 8" value="8">
+            </div>
+            <div class="form-group">
+              <label for="additional-partitions">Interior Partitions</label>
+              <input type="number" id="additional-partitions" name="additional-partitions" placeholder="e.g., 1" value="0">
+            </div>
+          </div>
+        </section>
+
+        <button type="submit" class="calculate-btn">Calculate AC Capacity</button>
+      </form>
+
+      <section class="results-section" id="results-section">
+        <div class="results-header">
+          <h2>Calculated AC Capacity</h2>
+        </div>
+
+        <div class="capacity-display">
+          <div class="capacity-value" id="capacity-value">---</div>
+          <div class="capacity-unit">BTU</div>
+        </div>
+
+        <div class="recommendation" id="recommendation">
+          Please fill in the form and click Calculate to see results.
+        </div>
+
+        <div class="specs-grid" id="specs-grid">
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>AC Load Calculator &copy; 2026</p>
+    </footer>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
