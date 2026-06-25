@@ -1,0 +1,16 @@
+[build]
+  publish = "ac-calculator"
+  command = "echo 'Static site - no build needed'"
+
+[[redirects]]
+  from = "/engineering-notes/*"
+  to = "/engineering-notes/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/ac-calculator/*"
+  to = "/ac-calculator/:splat"
+  status = 200
+
+[functions]
+  directory = "netlify/functions"
